@@ -28,8 +28,8 @@ public class MathController {
 
     @GetMapping("/divide/{num1}/by/{num2}")
     @ResponseBody
-    public int divideNumbers(@PathVariable String num1, @PathVariable String num2) {
-        return (Integer.parseInt(num1) / Integer.parseInt(num2));
+    public double divideNumbers(@PathVariable String num1, @PathVariable String num2) {
+        return (Double.parseDouble(num1) / Double.parseDouble(num2));
     }
 
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess result</title>
+</head>
+<body>
+<h1>Results</h1>
+<br>
+<p>Your roll: <span th:text="${guess}"></span></p>
+<p>Server roll: <span th:text="${roll}"></span></p>
+
+<h3 th:if="${correct} == true">Your guess was correct!</h3>
+<h3 th:if="${correct} == false">Your guess was incorrect, try again!</h3>
+
+<br>
+<!--<h4>Roll list:</h4>-->
+<!--    <ol>-->
+<!--        <li th:each="dieroll : ${rollList}"><span th:text="${dieroll}"></span></li>-->
+<!--    </ol>-->
+
+
+
+<table>
+    <tr>
+        <th>Roll</th>
+        <th>Result</th>
+    </tr>
+    <tr th:each="result : ${resultList}">
+        <td><span th:text="${result[0]}"></span></td>
+        <td><span th:text="${result[1]}"></span></td>
+    </tr>
+</table>
+
+<h5><a href="/roll-dice">Roll again?</a></h5>
+
+</body>
+</html>
