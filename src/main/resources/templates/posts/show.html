@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/partials :: head">
+    <meta charset="UTF-8">
+    <title>Individual Post</title>
+</head>
+<body>
+    <h3 th:text="${post.getTitle()}"></h3>
+    <p>Post ID: <span th:text="${id}">ID</span></p>
+    <p th:text="${post.getBody()}"></p>
+
+</body>
+</html>
