@@ -5,6 +5,9 @@
     <title>Posts Index Title</title>
 </head>
 <body>
-    <h1>Posts Index</h1>
+    <div th:each="post : ${listings}">
+        <h3 th:text="${post.getTitle()}"></h3>
+        <p th:text="${post.getBody()}"></p>
+    </div>
 </body>
 </html>

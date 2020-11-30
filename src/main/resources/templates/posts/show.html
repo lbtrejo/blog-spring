@@ -5,7 +5,9 @@
     <title>Individual Post</title>
 </head>
 <body>
-    <h1>Post data</h1>
+    <h3 th:text="${post.getTitle()}"></h3>
     <p>Post ID: <span th:text="${id}">ID</span></p>
+    <p th:text="${post.getBody()}"></p>
+
 </body>
 </html>
