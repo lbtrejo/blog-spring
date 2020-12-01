@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partials :: head">
+<head th:replace="partials/partials :: head('View Post')">
     <meta charset="UTF-8">
     <title>Individual Post</title>
 </head>
 <body>
-    <h3 th:text="${post.getTitle()}"></h3>
+    <nav th:replace="partials/partials :: navbar"></nav>
+    <header th:replace="partials/partials :: header('View a Post')"></header>
+    <h5 th:text="${post.getTitle()}"></h5>
     <p>Post ID: <span th:text="${id}">ID</span></p>
     <p th:text="${post.getBody()}"></p>
-
+    <footer th:replace="partials/partials :: footer"></footer>
+    <th:block th:include="partials/partials :: scripts"></th:block>
 </body>
 </html>
