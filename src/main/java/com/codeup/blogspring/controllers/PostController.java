@@ -35,19 +35,18 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String viewCreatePost() {
-        return "Create a post!";
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
     public String createPost(
             @RequestParam(name = "title") String title,
             @RequestParam(name = "body") String body
     ) {
+
         Post post = new Post(title, body);
-        Post dbPost = postDao.save(post);
-        return "Post created with ID: " + dbPost.getId();
+        postDao.save(post);
+        return "redirect:/posts";
     }
 }

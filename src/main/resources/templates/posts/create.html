@@ -6,14 +6,14 @@
 <nav th:replace="partials/partials :: navbar"></nav>
 <header th:replace="partials/partials :: header('Create a Post')"></header>
     <div class="container">
-        <form action="#" th:action="@{/posts/create}" method="post">
+        <form th:action="@{/posts/create}" method="post">
             <div class="form-group">
-                <label th:for="${#ids.next('title')}">Title</label>
-                <input type="text" th:field="*{title}">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title">
             </div>
             <div class="form-group">
-                <label th:for="${#ids.next('body')}">Body</label>
-                <textarea th:field="*{body}"></textarea>
+                <label for="body">Body</label>
+                <textarea name="body" id="body"></textarea>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
