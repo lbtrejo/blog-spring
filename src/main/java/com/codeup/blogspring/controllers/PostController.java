@@ -36,11 +36,13 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
+    @ResponseBody
     public String viewCreatePost() {
         return "Create a post!";
     }
 
     @PostMapping("/posts/create")
+    @ResponseBody
     public String createPost() {
         return "Post created";
     }
