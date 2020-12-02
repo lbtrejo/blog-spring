@@ -44,6 +44,14 @@ public class PostController {
         return "posts/create";
     }
 
+    @PostMapping("/posts/delete/{id}")
+    public String deletePost(@PathVariable long id){
+        if (postDao.findById(id).isPresent()){
+            postDao.deleteById(id);
+        }
+        return "redirect:/posts";
+    }
+
     @PostMapping("/posts/create")
     public String createPost(
             @RequestParam(name = "title") String title,

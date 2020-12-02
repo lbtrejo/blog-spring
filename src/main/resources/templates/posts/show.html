@@ -10,6 +10,9 @@
     <h5 th:text="${post.getTitle()}"></h5>
     <p>Post ID: <span th:text="${id}">ID</span></p>
     <p th:text="${post.getBody()}"></p>
+    <form th:action="@{/posts/delete/__${id}__}" th:method="post">
+        <button class="btn btn-danger" name="delete-post-btn">Delete Post</button>
+    </form>
     <footer th:replace="partials/partials :: footer"></footer>
     <th:block th:include="partials/partials :: scripts"></th:block>
 </body>
