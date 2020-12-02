@@ -25,6 +25,13 @@ public class PostController {
         return "posts/index";
     }
 
+    @GetMapping("/posts/search")
+    public String searchPosts(@RequestParam(name = "term") String term, Model viewModel){
+        List<Post> resultPosts = postDao.findAllByTitleOrBody(term);
+        viewModel.addAttribute("results", resultPosts);
+        return "posts/index";
+    }
+
     @GetMapping("/posts/{id}")
     public String showPost(@PathVariable long id, Model model) {
         Post test = new Post();
