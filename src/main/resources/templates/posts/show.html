@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partials :: head('View Post')">
-    <meta charset="UTF-8">
-    <title>Individual Post</title>
-</head>
+<head th:replace="partials/partials :: head('View Post')"></head>
 <body>
     <nav th:replace="partials/partials :: navbar"></nav>
     <header th:replace="partials/partials :: header('View a Post')"></header>
     <h5 th:text="${post.getTitle()}"></h5>
-    <p>Post ID: <span th:text="${id}">ID</span></p>
     <p th:text="${post.getBody()}"></p>
-    <form th:action="@{/posts/{postId}/delete(postId=${id})}" th:method="post">
-        <!--    th:action="@{/posts/delete/__${id}__}"    -->
-        <button class="btn btn-danger" name="delete-post-btn">Delete Post</button>
-    </form>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+        Delete Post
+    </button>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
         Edit Post
     </button>
+    <div th:replace="partials/modals :: delete-modal"></div>
     <div th:replace="partials/modals :: edit-modal"></div>
     <footer th:replace="partials/partials :: footer"></footer>
     <th:block th:include="partials/partials :: scripts"></th:block>
