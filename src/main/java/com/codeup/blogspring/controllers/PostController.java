@@ -26,8 +26,13 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String showPost(@PathVariable String id, Model model) {
-        Post test = new Post("Test Title", "Test Body");
+    public String showPost(@PathVariable long id, Model model) {
+        Post test = new Post();
+        if (postDao.findById(id).isPresent()){
+            test = postDao.findById(id).get();
+        } else {
+            return "redirect:/posts";
+        }
 
         model.addAttribute("post", test);
         model.addAttribute("id", id);
