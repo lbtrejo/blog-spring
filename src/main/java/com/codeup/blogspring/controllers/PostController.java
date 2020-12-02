@@ -1,12 +1,10 @@
 package com.codeup.blogspring.controllers;
 
 import com.codeup.blogspring.models.Post;
+import com.codeup.blogspring.repos.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,21 +12,27 @@ import java.util.List;
 @Controller
 public class PostController {
 
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao){
+        this.postDao = postDao;
+    }
+
     @GetMapping("/posts")
     public String getPosts(Model model) {
-        List<Post> listings = new ArrayList<>();
-        Post test = new Post("Test Title", "Test Body");
-        Post test2 = new Post("Test Title 2", "Test Body 2");
-        listings.add(test);
-        listings.add(test2);
 
-        model.addAttribute("listings", listings);
+        model.addAttribute("posts", postDao.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
-    public String showPost(@PathVariable String id, Model model) {
-        Post test = new Post("Test Title", "Test Body");
+    public String showPost(@PathVariable long id, Model model) {
+        Post test = new Post();
+        if (postDao.findById(id).isPresent()){
+            test = postDao.getOne(id);
+        } else {
+            return "redirect:/posts";
+        }
 
         model.addAttribute("post", test);
         model.addAttribute("id", id);
@@ -36,14 +40,41 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String viewCreatePost() {
-        return "Create a post!";
+        return "posts/create";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id){
+        if (postDao.findById(id).isPresent()){
+            postDao.deleteById(id);
+        }
+        return "redirect:/posts";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost() {
-        return "Post created";
+    public String createPost(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "body") String body
+    ) {
+
+        Post post = new Post(title, body);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(
+            @PathVariable long id,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "body") String body
+    ){
+        if (postDao.findById(id).isPresent()){
+            Post dbPost = postDao.getOne(id);
+            dbPost.setTitle(title);
+            dbPost.setBody(body);
+            postDao.save(dbPost);
+        }
+        return "redirect:/posts";
     }
 }
