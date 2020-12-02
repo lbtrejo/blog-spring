@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h5 th:text="${post.getTitle()}" class="card-title"></h5>
                 <p th:text="${post.getBody()}" class="card-text"></p>
-                <a class="btn btn-success" th:href="@{/posts/__${post.id}__}">View Post</a>
+                <a class="btn btn-success" th:href="@{/posts/{id}(id=${post.id})}">View Post</a>
             </div>
         </div>
     </div>

@@ -29,7 +29,7 @@ public class PostController {
     public String showPost(@PathVariable long id, Model model) {
         Post test = new Post();
         if (postDao.findById(id).isPresent()){
-            test = postDao.findById(id).get();
+            test = postDao.getOne(id);
         } else {
             return "redirect:/posts";
         }
@@ -44,7 +44,7 @@ public class PostController {
         return "posts/create";
     }
 
-    @PostMapping("/posts/delete/{id}")
+    @PostMapping("/posts/{id}/delete")
     public String deletePost(@PathVariable long id){
         if (postDao.findById(id).isPresent()){
             postDao.deleteById(id);
@@ -60,6 +60,21 @@ public class PostController {
 
         Post post = new Post(title, body);
         postDao.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(
+            @PathVariable long id,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "body") String body
+    ){
+        if (postDao.findById(id).isPresent()){
+            Post dbPost = postDao.getOne(id);
+            dbPost.setTitle(title);
+            dbPost.setBody(body);
+            postDao.save(dbPost);
+        }
         return "redirect:/posts";
     }
 }
