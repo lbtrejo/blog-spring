@@ -1,7 +1,9 @@
 package com.codeup.blogspring.controllers;
 
 import com.codeup.blogspring.models.Post;
+import com.codeup.blogspring.models.User;
 import com.codeup.blogspring.repos.PostRepository;
+import com.codeup.blogspring.repos.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +15,11 @@ import java.util.List;
 public class PostController {
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postDao){
+    public PostController(PostRepository postDao, UserRepository userDao){
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts")
@@ -57,9 +61,10 @@ public class PostController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "body") String body
     ) {
-
-        Post post = new Post(title, body);
+        User user = userDao.getOne(1L);
+        Post post = new Post(title, body, user);
         postDao.save(post);
+        // Need a 
         return "redirect:/posts";
     }
 
