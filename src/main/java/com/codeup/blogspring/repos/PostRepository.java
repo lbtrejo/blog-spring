@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("from Post p where p.title OR p.body like %:term%")
-    List<Post> findAllByTitleOrBody(@Param("term") String term);
+    List<Post> findAllByTitleIsLike(@Param("term") String term);
+    List<Post> findAllByBodyIsLike(@Param("term") String term);
 }

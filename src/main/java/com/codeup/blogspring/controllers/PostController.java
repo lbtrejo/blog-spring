@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,19 @@ public class PostController {
     }
 
     @GetMapping("/posts/search")
-    public String searchPosts(@RequestParam(name = "term") String term, Model viewModel){
-        List<Post> resultPosts = postDao.findAllByTitleOrBody(term);
-        viewModel.addAttribute("results", resultPosts);
-        return "posts/index";
+    public String searchPosts(
+            @PathParam("searchType") String searchType,
+            @PathParam("term") String term,
+            Model viewModel){
+        List<Post> results = new ArrayList<>();
+        if (searchType.equalsIgnoreCase("title")){
+            results = postDao.findAllByTitleIsLike(term);
+        } else {
+            results = postDao.findAllByBodyIsLike(term);
+        }
+
+        viewModel.addAttribute("results", results);
+        return "posts/results";
     }
 
     @GetMapping("/posts/{id}")

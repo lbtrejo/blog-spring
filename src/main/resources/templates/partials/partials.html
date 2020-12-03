@@ -29,8 +29,13 @@
                     <a class="nav-link" th:href="@{/login}">Login</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search titles or bodies" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0 ml-auto" th:action="@{/posts/search}">
+                <label th:for="searchType">Search Type</label>
+                <select class="form-control" th:name="searchType" th:id="searchType">
+                    <option th:value="title">Title</option>
+                    <option th:value="body">Body</option>
+                </select>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" th:name="term" th:id="term">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
