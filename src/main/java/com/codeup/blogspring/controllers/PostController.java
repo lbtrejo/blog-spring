@@ -64,7 +64,7 @@ public class PostController {
         User user = userDao.getOne(1L);
         Post post = new Post(title, body, user);
         postDao.save(post);
-        // Need a 
+        // TODO: Need a userPostDao and appropriate code to make sure the 1 -> Many table gets populated
         return "redirect:/posts";
     }
 
