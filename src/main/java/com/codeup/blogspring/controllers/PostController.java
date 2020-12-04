@@ -89,15 +89,13 @@ public class PostController {
     @PostMapping("/posts/{id}/edit")
     public String editPost(
             @PathVariable long id,
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "body") String body
+            @ModelAttribute Post editedPost
     ){
-        if (postDao.findById(id).isPresent()){
-            Post dbPost = postDao.getOne(id);
-            dbPost.setTitle(title);
-            dbPost.setBody(body);
-            postDao.save(dbPost);
-        }
+
+        Post dbPost = postDao.getOne(id);
+        dbPost.setTitle(editedPost.getTitle());
+        dbPost.setBody(editedPost.getBody());
+        postDao.save(dbPost);
         return "redirect:/posts";
     }
 }
