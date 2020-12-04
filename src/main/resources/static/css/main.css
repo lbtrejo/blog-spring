@@ -1,0 +1,35 @@
+.text-green {
+    color: #81CAAF;
+}
+
+.text-purple {
+    color: #8A81CA
+}
+
+.text-red {
+    color: #CA819C
+}
+
+.text-gold {
+    color: #C1CA81
+}
+
+.bg-green {
+    background-color: #81CAAF;
+}
+
+.bg-purple {
+    background-color: #8A81CA;
+}
+
+.bg-red {
+    background-color: #CA819C;
+}
+
+.bg-gold {
+    background-color: #C1CA81;
+}
+
+.bg-dark {
+    background-color: #131516;
+}
