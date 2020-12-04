@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +30,28 @@ public class PostController {
         return "posts/index";
     }
 
+    @GetMapping("/posts/search")
+    public String searchPosts(
+            @PathParam("searchType") String searchType,
+            @PathParam("term") String term,
+            Model viewModel){
+        String wildcard = "%" + term + "%";
+        List<Post> results;
+        if (searchType.equalsIgnoreCase("title")){
+            results = postDao.findAllByTitleIsLike(wildcard);
+        } else {
+            results = postDao.findAllByBodyIsLike(wildcard);
+        }
+
+        viewModel.addAttribute("results", results);
+        return "posts/results";
+
+        // TODO: Remove search type and make search work on both fields by default
+    }
+
     @GetMapping("/posts/{id}")
     public String showPost(@PathVariable long id, Model model) {
-        Post test = new Post();
+        Post test;
         if (postDao.findById(id).isPresent()){
             test = postDao.getOne(id);
         } else {
