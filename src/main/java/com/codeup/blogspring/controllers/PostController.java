@@ -35,20 +35,23 @@ public class PostController {
             @PathParam("searchType") String searchType,
             @PathParam("term") String term,
             Model viewModel){
-        List<Post> results = new ArrayList<>();
+        String wildcard = "%" + term + "%";
+        List<Post> results;
         if (searchType.equalsIgnoreCase("title")){
-            results = postDao.findAllByTitleIsLike(term);
+            results = postDao.findAllByTitleIsLike(wildcard);
         } else {
-            results = postDao.findAllByBodyIsLike(term);
+            results = postDao.findAllByBodyIsLike(wildcard);
         }
 
         viewModel.addAttribute("results", results);
         return "posts/results";
+
+        // TODO: Remove search type and make search work on both fields by default
     }
 
     @GetMapping("/posts/{id}")
     public String showPost(@PathVariable long id, Model model) {
-        Post test = new Post();
+        Post test;
         if (postDao.findById(id).isPresent()){
             test = postDao.getOne(id);
         } else {
