@@ -64,7 +64,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String viewCreatePost() {
+    public String viewCreatePost(Model viewModel) {
+        viewModel.addAttribute("post", new Post());
         return "posts/create";
     }
 
@@ -77,13 +78,10 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    public String createPost(
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "body") String body
-    ) {
-        User user = userDao.getOne(1L);
-        Post post = new Post(title, body, user);
-        postDao.save(post);
+    public String createPost(@ModelAttribute Post submittedPost) {
+        User dbUser = userDao.getOne(1L);
+        submittedPost.setUser(dbUser);
+        postDao.save(submittedPost);
         // TODO: Need a userPostDao and appropriate code to make sure the 1 -> Many table gets populated
         return "redirect:/posts";
     }
@@ -91,15 +89,13 @@ public class PostController {
     @PostMapping("/posts/{id}/edit")
     public String editPost(
             @PathVariable long id,
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "body") String body
+            @ModelAttribute Post editedPost
     ){
-        if (postDao.findById(id).isPresent()){
-            Post dbPost = postDao.getOne(id);
-            dbPost.setTitle(title);
-            dbPost.setBody(body);
-            postDao.save(dbPost);
-        }
+
+        Post dbPost = postDao.getOne(id);
+        dbPost.setTitle(editedPost.getTitle());
+        dbPost.setBody(editedPost.getBody());
+        postDao.save(dbPost);
         return "redirect:/posts";
     }
 }
