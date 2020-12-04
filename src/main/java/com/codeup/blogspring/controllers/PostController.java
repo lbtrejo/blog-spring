@@ -4,12 +4,12 @@ import com.codeup.blogspring.models.Post;
 import com.codeup.blogspring.models.User;
 import com.codeup.blogspring.repos.PostRepository;
 import com.codeup.blogspring.repos.UserRepository;
+import com.codeup.blogspring.utlis.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,10 +17,12 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao){
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService){
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -81,7 +83,8 @@ public class PostController {
     public String createPost(@ModelAttribute Post submittedPost) {
         User dbUser = userDao.getOne(1L);
         submittedPost.setUser(dbUser);
-        postDao.save(submittedPost);
+        Post dbPost = postDao.save(submittedPost);
+        emailService.prepareAndSend(dbPost, "Post created", "Post created, see post #" + dbPost.getId() + ".");
         // TODO: Need a userPostDao and appropriate code to make sure the 1 -> Many table gets populated
         return "redirect:/posts";
     }
