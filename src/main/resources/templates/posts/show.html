@@ -4,8 +4,9 @@
 <body>
     <nav th:replace="partials/partials :: navbar"></nav>
     <header th:replace="partials/partials :: header('View a Post')"></header>
-    <h5 th:text="${post.getTitle()}"></h5>
-    <p th:text="${post.getBody()}"></p>
+    <h5 th:text="${post.title}"></h5>
+    <p th:text="${post.body}"></p>
+    <p>Posted by: <span th:text="${post.user.email}"></span></p>
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
         Delete Post
     </button>
