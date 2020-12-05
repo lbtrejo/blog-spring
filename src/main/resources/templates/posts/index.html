@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <title>Posts Index Title</title>
 </head>
-<body>
+<body class="bg-dark">
     <nav th:replace="partials/partials :: navbar"></nav>
     <header th:replace="partials/partials :: header('View All Posts')"></header>
     <div th:each="post : ${posts}" class="container">
-        <div class="card">
-            <div class="card-body">
-                <h5 th:text="${post.getTitle()}" class="card-title"></h5>
-                <p th:text="${post.getBody()}" class="card-text"></p>
-                <a class="btn btn-success" th:href="@{/posts/{id}(id=${post.id})}">View Post</a>
+        <div class="card bg-dark p-3 m-3 border-custom">
+            <div class="card-body bg-gray border-custom-reverse">
+                <h5 th:text="${post.getTitle()}" class="card-title text-green"></h5>
+                <p th:text="${post.getBody()}" class="card-text text-gold"></p>
+                <a class="btn bg-purple" th:href="@{/posts/{id}(id=${post.id})}">View Post</a>
             </div>
         </div>
     </div>
