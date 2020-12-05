@@ -10,7 +10,7 @@
     <title>Spring Blog: <th:block th:text="${title}"></th:block></title>
 </head>
 <body>
-    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg text-gold bg-dark">
         <a class="navbar-brand" th:href="@{/}">Spring Blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,6 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0 ml-auto" th:action="@{/posts/search}">
-                <label th:for="searchType">Search Type</label>
                 <select class="form-control" th:name="searchType" th:id="searchType">
                     <option th:value="title">Title</option>
                     <option th:value="body">Body</option>
@@ -43,15 +42,15 @@
     </nav>
 
     <header th:fragment="header(title)">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h4><th:block th:text="${title}"></th:block></h4>
+        <div class="jumbotron jumbotron-fluid bg-green">
+            <div class="container text-center">
+                <h2 class="text-red"><th:block th:text="${title}"></th:block></h2>
             </div>
         </div>
     </header>
 
     <footer th:fragment="footer">
-        <p>&copy; Trejo Dev 2020</p>
+        <p class="text-green">&copy; Trejo Dev 2020</p>
     </footer>
 
     <div th:fragment="scripts">

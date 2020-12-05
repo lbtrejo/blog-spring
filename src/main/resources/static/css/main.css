@@ -1,3 +1,11 @@
+p {
+    text-shadow: 1px 1px 1px #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-shadow: 2px 2px 2px #000;
+}
+
 .text-green {
     color: #81CAAF;
 }
@@ -32,4 +40,26 @@
 
 .bg-dark {
     background-color: #131516;
+}
+
+.bg-gray {
+    background-color: #474f53;
+}
+
+.border-custom {
+    border: 2px solid;
+    border-radius: 12px;
+    border-left-color: #81CAAF;
+    border-top-color: #CA819C;
+    border-right-color: #C1CA81;
+    border-bottom-color: #8A81CA;
+}
+
+.border-custom-reverse {
+    border: 2px solid;
+    border-radius: 12px;
+    border-right-color: #81CAAF;
+    border-bottom-color: #CA819C;
+    border-left-color: #C1CA81;
+    border-top-color: #8A81CA;
 }

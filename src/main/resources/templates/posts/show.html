@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/partials :: head('View Post')"></head>
-<body>
-    <nav th:replace="partials/partials :: navbar"></nav>
-    <header th:replace="partials/partials :: header('View a Post')"></header>
-    <h5 th:text="${post.title}"></h5>
-    <p th:text="${post.body}"></p>
-    <p>Posted by: <span th:text="${post.user.email}"></span></p>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-        Delete Post
-    </button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
-        Edit Post
-    </button>
-    <div th:replace="partials/modals :: delete-modal"></div>
-    <div th:replace="partials/modals :: edit-modal"></div>
+<body class="bg-dark">
+    <div class="container-fluid">
+        <nav th:replace="partials/partials :: navbar"></nav>
+        <header th:replace="partials/partials :: header('View a Post')"></header>
+        <div class="container bg-gray border-custom p-3 m-3">
+            <h5 th:text="${post.title}" class="text-green"></h5>
+            <p th:text="${post.body}" class="text-gold"></p>
+            <p>Posted by: <span th:text="${post.user.email}"></span></p>
+            <button type="button" class="btn bg-red" data-toggle="modal" data-target="#deleteModal">
+                Delete Post
+            </button>
+            <button type="button" class="btn bg-purple" data-toggle="modal" data-target="#editModal">
+                Edit Post
+            </button>
+            <div th:replace="partials/modals :: delete-modal"></div>
+            <div th:replace="partials/modals :: edit-modal"></div>
+        </div>
+    </div>
     <footer th:replace="partials/partials :: footer"></footer>
     <th:block th:include="partials/partials :: scripts"></th:block>
 </body>
