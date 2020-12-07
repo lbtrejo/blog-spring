@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials :: head('Blog Posts')">
     <meta charset="UTF-8">
     <title>Posts Index Title</title>
@@ -7,6 +8,13 @@
 <body class="bg-dark">
     <nav th:replace="partials/partials :: navbar"></nav>
     <header th:replace="partials/partials :: header('View All Posts')"></header>
+    <div sec:authorize="isAuthenticated()">
+        This content is only shown to authenticated users.
+
+        User ID: <span th:text="${#authentication.principal.id}"/>
+        Username: <span th:text="${#authentication.principal.username}"/>
+        Email: <span th:text="${#authentication.principal.email}"/>
+    </div>
     <div th:each="post : ${posts}" class="container">
         <div class="card bg-dark p-3 m-3 border-custom">
             <div class="card-body bg-gray border-custom-reverse">

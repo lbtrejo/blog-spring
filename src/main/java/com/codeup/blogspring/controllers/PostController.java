@@ -4,7 +4,7 @@ import com.codeup.blogspring.models.Post;
 import com.codeup.blogspring.models.User;
 import com.codeup.blogspring.repos.PostRepository;
 import com.codeup.blogspring.repos.UserRepository;
-import com.codeup.blogspring.utlis.EmailService;
+import com.codeup.blogspring.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

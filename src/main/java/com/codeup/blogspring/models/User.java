@@ -31,6 +31,14 @@ public class User {
         this.posts = posts;
     }
 
+    public User(User copy) {
+        this.id = copy.id;
+        this.email = copy.email;
+        this.username = copy.username;
+        this.password = copy.password;
+        this.posts = copy.posts;
+    }
+
     public User(long id, String username, String email, String password, List<UserPost> posts) {
         this.id = id;
         this.username = username;

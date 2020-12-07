@@ -1,4 +1,4 @@
-package com.codeup.blogspring.utlis;
+package com.codeup.blogspring.services;
 
 import com.codeup.blogspring.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
