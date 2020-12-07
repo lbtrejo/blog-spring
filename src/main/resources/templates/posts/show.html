@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials :: head('View Post')"></head>
 <body class="bg-dark">
     <div class="container-fluid">
@@ -9,14 +10,17 @@
             <h5 th:text="${post.title}" class="text-green"></h5>
             <p th:text="${post.body}" class="text-gold"></p>
             <p>Posted by: <span th:text="${post.user.email}"></span></p>
-            <button type="button" class="btn bg-red" data-toggle="modal" data-target="#deleteModal">
-                Delete Post
-            </button>
-            <button type="button" class="btn bg-purple" data-toggle="modal" data-target="#editModal">
-                Edit Post
-            </button>
-            <div th:replace="partials/modals :: delete-modal"></div>
-            <div th:replace="partials/modals :: edit-modal"></div>
+            <br>
+            <div sec:authorize="isAuthenticated()" th:if="${#authentication.principal.id == post.user.id}">
+                <button type="button" class="btn bg-red" data-toggle="modal" data-target="#deleteModal">
+                    Delete Post
+                </button>
+                <button type="button" class="btn bg-purple" data-toggle="modal" data-target="#editModal">
+                    Edit Post
+                </button>
+                <div th:replace="partials/modals :: delete-modal"></div>
+                <div th:replace="partials/modals :: edit-modal"></div>
+            </div>
         </div>
     </div>
     <footer th:replace="partials/partials :: footer"></footer>
