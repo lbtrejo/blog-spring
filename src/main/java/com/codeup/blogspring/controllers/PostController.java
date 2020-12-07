@@ -5,6 +5,7 @@ import com.codeup.blogspring.models.User;
 import com.codeup.blogspring.repos.PostRepository;
 import com.codeup.blogspring.repos.UserRepository;
 import com.codeup.blogspring.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -81,7 +82,9 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post submittedPost) {
-        User dbUser = userDao.getOne(1L);
+//        User dbUser = userDao.getOne(1L);
+        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User dbUser = userDao.getOne(sessionUser.getId());
         submittedPost.setUser(dbUser);
         Post dbPost = postDao.save(submittedPost);
         emailService.prepareAndSend(dbPost, "Post created", "Post created, see post #" + dbPost.getId() + ".");
