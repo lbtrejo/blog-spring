@@ -1,5 +1,6 @@
 package com.codeup.blogspring;
 
+import com.codeup.blogspring.models.Post;
 import com.codeup.blogspring.models.User;
 import com.codeup.blogspring.repos.PostRepository;
 import com.codeup.blogspring.repos.UserRepository;
@@ -17,11 +18,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.servlet.http.HttpSession;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BlogSpringApplication.class)
@@ -86,5 +88,26 @@ public class PostsIntegrationsTests {
                     .param("title", "reptiles")
                     .param("body", "Are cool creatures"))
                 .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    public void testShowPost() throws Exception {
+
+        Post existingPost = postsDao.findAll().get(0);
+
+        this.mvc.perform(get("/posts/" + existingPost.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(existingPost.getBody())));
+    }
+
+    @Test
+    public void testPostsIndex() throws Exception {
+
+        Post existingPost = postsDao.findAll().get(0);
+
+        this.mvc.perform(get("/posts"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("View All Posts")))
+                .andExpect(content().string(containsString(existingPost.getTitle())));
     }
 }
